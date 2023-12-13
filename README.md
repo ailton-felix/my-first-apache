@@ -1,7 +1,7 @@
 # my-first-apache
 My first experiment with apache beam
 
-## How run?
+## How to run?
 You can choose any option below to run an Apache sample:
 
 ### Run `Apache_Beam_functions.ipynb`
