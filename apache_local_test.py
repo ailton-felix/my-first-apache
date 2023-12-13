@@ -15,13 +15,15 @@ class MyFilter(beam.DoFn):
 
 if __name__ == '__main__':
 
-    data_path = './dataset/voos_sample.csv'
+    # Caminho local do arquivo de dataset
+    data_path = os.path.join(os.path.dirname(__file__), 'dataset/voos_sample.csv')
 
     if not os.path.exists(data_path):
         # Download dataset
-        subprocess.run("wget --directory-prefix=./dataset/ https://raw.githubusercontent.com/cassiobolba/Python/master/"
+        subprocess.run(f"wget --directory-prefix={os.path.dirname(data_path)} https://raw.githubusercontent.com/cassiobolba/Python/master/"
                        "Python-Apache-Beam/voos_sample.csv", shell=True)
 
+    # Definindo pipeline
     p1 = beam.Pipeline()
 
     # beam.CombinePerKey
