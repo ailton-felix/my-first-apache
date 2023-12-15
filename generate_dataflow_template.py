@@ -5,6 +5,12 @@ import apache_beam as beam
 
 from apache_beam.options.pipeline_options import PipelineOptions
 
+# GCP authentication
+service_account_path = './service_account.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = service_account_path
+# bucket path to save the final file
+bucket_path = 'path/to/bucket'
+
 pipeline_options = {
     'project': 'my-first-apache',
     'runner': 'DataflowRunner',
@@ -13,12 +19,6 @@ pipeline_options = {
     'temp_location': 'gs://my-temp',
     'template_location': 'gs://my-temp'
 }
-
-# GCP authentication
-service_account_path = './service_account.json'
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = service_account_path
-# bucket path to save the final file
-bucket_path = 'path/to/bucket'
 
 class MyFilter(beam.DoFn):
     """
