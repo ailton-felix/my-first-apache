@@ -55,14 +55,13 @@ if __name__ == '__main__':
             | "Pegar voos de Los Angeles qtd" >> beam.ParDo(MyFilter())
             # create a dictionary
             | "Criar par qtd" >> beam.Map(lambda record: (record[4], int(record[8])))
-            # contando quantos atrasos tem cada aeroporto
-            # ...
+            # count how many delays each airport has
             | "Contar por key" >> beam.combiners.Count.PerKey()
         # |   "Mostrar Resultados" >> beam.Map(print)
     )
 
     delay_table = (
-        # montando um dicionário com os resultados das duas pCollection acima
+        # builds a dictionary with the two results from the pCollection above
         {'number_of_delays': number_of_delays, 'time_delay': time_delay}
         # agrupando as duas pCollection em função de suas keys (semelhante a
         # operação JOIN do SQL)
