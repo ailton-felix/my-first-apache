@@ -9,7 +9,7 @@ from apache_beam.options.pipeline_options import PipelineOptions
 service_account_path = './service_account.json'
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = service_account_path
 # bucket path to save the final file
-bucket_path = 'path/to/bucket'
+bucket_name = 'name_of_bucket'
 
 pipeline_options = {
     'project': 'my-first-apache',
@@ -78,7 +78,7 @@ if __name__ == '__main__':
             # agrupando as duas pCollection em função de suas keys (semelhante a
             # operação JOIN do SQL)
             | "Group By" >> beam.CoGroupByKey()
-            | 'Saída para GCP storage' >> beam.io.WriteToText(f'gs://{bucket_path}/dalayed_flights.csv')
+            | 'Saída para GCP storage' >> beam.io.WriteToText(f'gs://{bucket_name}/dalayed_flights.csv')
     )
 
     p1.run()
