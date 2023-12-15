@@ -6,18 +6,18 @@ import apache_beam as beam
 from apache_beam.options.pipeline_options import PipelineOptions
 
 # GCP authentication
-service_account_path = '/home/ailton/Documents/keys/machinelearningexps-service-account.json'
+service_account_path = './service_account.json'
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = service_account_path
 # bucket path to save the final file
-bucket_name = 'ht-ml-data/apache_test'
+bucket_name = 'name_of_bucket'
 
 pipeline_options = {
-    'project': 'machinelearningexps',
+    'project': 'my-first-apache',
     'runner': 'DataflowRunner',
-    'region': 'us-central1',
-    'staging_location': f'gs://{bucket_name}/temp',
-    'temp_location': f'gs://{bucket_name}/temp',
-    'template_location': f'gs://{bucket_name}/template/batch_job_df_gcs_voos'
+    'region': 'us-east-1',
+    'staging_location': 'gs://my-staging',
+    'temp_location': 'gs://my-temp',
+    'template_location': 'gs://my-temp'
 }
 
 class MyFilter(beam.DoFn):
@@ -81,7 +81,4 @@ if __name__ == '__main__':
             | 'Saída para GCP storage' >> beam.io.WriteToText(f'gs://{bucket_name}/dalayed_flights.csv')
     )
 
-    print('Creating dataflow template...')
     p1.run()
-
-    print('Operation Successful')
