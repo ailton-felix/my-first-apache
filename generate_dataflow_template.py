@@ -12,11 +12,11 @@ os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = service_account_path
 bucket_name = 'name_of_bucket'
 
 pipeline_options = {
-    'project': 'my-first-apache',
-    'runner': 'DataflowRunner',
-    'region': 'us-east-1',
-    'staging_location': 'gs://my-staging',
-    'temp_location': 'gs://my-temp',
+    'project': 'my-first-apache',   # The project ID for your Google Cloud Project.
+    'runner': 'DataflowRunner',  # The pipeline runner to use. 'DataflowRunner' run on the Cloud Dataflow Service.
+    'region': 'us-east-1',  # The Google Compute Engine region to create the job.
+    'staging_location': 'gs://my-staging',  # Optional. GCS bucket path for staging your binary and any temporary files
+    'temp_location': 'gs://my-temp',  # Required. Path for temporary files. A valid GCS URL that begins with gs://.
     'template_location': 'gs://my-temp'
 }
 
@@ -78,7 +78,7 @@ if __name__ == '__main__':
             # agrupando as duas pCollection em função de suas keys (semelhante a
             # operação JOIN do SQL)
             | "Group By" >> beam.CoGroupByKey()
-            | 'Saída para GCP storage' >> beam.io.WriteToText(f'gs://{bucket_name}/dalayed_flights.csv')
+            | 'Saída para GCP storage' >> beam.io.WriteToText(f'gs://{bucket_name}/output/dalayed_flights.csv')
     )
 
     p1.run()
