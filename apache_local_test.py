@@ -3,6 +3,11 @@ import os
 
 import apache_beam as beam
 
+# GCP authentication
+service_account_path = './service_account.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = service_account_path
+# bucket path to save the final file
+bucket_path = 'path/to/bucket'
 
 class MyFilter(beam.DoFn):
     """
@@ -16,6 +21,7 @@ class MyFilter(beam.DoFn):
 if __name__ == '__main__':
 
     # Caminho local do arquivo de dataset
+    # Local path to the dataset file
     data_path = os.path.join(os.path.dirname(__file__), 'dataset/voos_sample.csv')
 
     if not os.path.exists(data_path):
@@ -23,7 +29,7 @@ if __name__ == '__main__':
         subprocess.run(f"wget --directory-prefix={os.path.dirname(data_path)} https://raw.githubusercontent.com/cassiobolba/Python/master/"
                        "Python-Apache-Beam/voos_sample.csv", shell=True)
 
-    # Definindo pipeline
+    # Define pipeline
     p1 = beam.Pipeline()
 
     # beam.CombinePerKey
@@ -31,11 +37,11 @@ if __name__ == '__main__':
             p1
             | "Importar Dados Atraso" >> beam.io.ReadFromText(data_path, skip_header_lines=1)
             | "Separar por Vírgulas Atraso" >> beam.Map(lambda record: record.split(','))
-            # voos com atraso
+            # flights late
             | "Pegar voos de Los Angeles com atraso" >> beam.ParDo(MyFilter())
-            # cria um dicionário
+            # create a dictionary
             | "Criar par atraso" >> beam.Map(lambda record: (record[4], int(record[8])))
-            # somas dos valores de atrasos (acúmulo de atrasos)
+            # sum of delayed flights values (accumulation of delays)
             | "Somar por key" >> beam.CombinePerKey(sum)
         # |   "Mostrar Resultados" >> beam.Map(print)
     )
@@ -45,11 +51,12 @@ if __name__ == '__main__':
             p1
             | "Importar Dados" >> beam.io.ReadFromText(data_path, skip_header_lines=1)
             | "Separar por Vírgulas" >> beam.Map(lambda record: record.split(','))
-            # voos com atraso
+            # flights late
             | "Pegar voos de Los Angeles qtd" >> beam.ParDo(MyFilter())
-            # cria um dicionário
+            # create a dictionary
             | "Criar par qtd" >> beam.Map(lambda record: (record[4], int(record[8])))
             # contando quantos atrasos tem cada aeroporto
+            # ...
             | "Contar por key" >> beam.combiners.Count.PerKey()
         # |   "Mostrar Resultados" >> beam.Map(print)
     )
@@ -60,7 +67,7 @@ if __name__ == '__main__':
         # agrupando as duas pCollection em função de suas keys (semelhante a
         # operação JOIN do SQL)
         | "Group By" >> beam.CoGroupByKey()
-        | beam.Map(print)
+        | 'Saída para GCP storage' >> beam.io.WriteToText(f'gs://{bucket_path}/dalayed_flights.csv')
     )
 
     p1.run()
