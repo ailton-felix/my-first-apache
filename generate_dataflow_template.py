@@ -81,4 +81,7 @@ if __name__ == '__main__':
             | 'Saída para GCP storage' >> beam.io.WriteToText(f'gs://{bucket_name}/output/dalayed_flights.csv')
     )
 
+    print('Creating dataflow template...')
     p1.run()
+
+    print('Operation Successful')
