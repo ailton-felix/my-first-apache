@@ -8,7 +8,7 @@ You can choose any option below to run an Apache sample:
 Notebook with some examples of Apache Beam operations.
 
 - ### Run `apache_local_to_gcp.py`
-![Process Overview](imgs/apache.png)
+<img src="imgs/apache.png" alt="Local Process Overview" width="80%" height="auto"><br>
 Starts a local pipeline similar to the Notebook example, but with storage on GCP.
 
 # References
