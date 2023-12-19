@@ -1,7 +1,7 @@
 # my-first-apache
-My first experiment with apache beam
+My first experiment with apache beam.
 
-Note: dataset extracted from [here](https://raw.githubusercontent.com/cassiobolba/Python/master/Python-Apache-Beam/voos_sample.csv)
+Note: dataset extracted from [here](https://raw.githubusercontent.com/cassiobolba/Python/master/Python-Apache-Beam/voos_sample.csv).
 
 ## How to run?
 You can choose any option below to run an Apache sample:
