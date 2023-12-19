@@ -1,3 +1,9 @@
+"""
+A `DataflowRunner` example that submit the pipeline to a Dataflow compute instance.
+This instance can be a single virtual machine. This scritp don't run the pipeline, just
+create the template on GCS.
+"""
+
 import os
 
 import apache_beam as beam
@@ -12,7 +18,9 @@ bucket_name = 'name_of_bucket'
 
 pipeline_options = {
     'project': 'my-first-apache',   # The project ID for your Google Cloud Project.
-    'runner': 'DataflowRunner',  # The pipeline runner to use. 'DataflowRunner' run on the Cloud Dataflow Service.
+    'runner': 'DataflowRunner',  # The pipeline runner to use.
+                                 # 'DataflowRunner' run the pipeline on the Cloud Dataflow Service.
+                                 # 'DirectRunner' run the pipeline on local machine
     'region': 'us-east-1',  # The Google Compute Engine region to create the job.
     'staging_location': 'gs://my-staging',  # Optional. GCS bucket path for staging your binary and any temporary files
     'temp_location': 'gs://my-temp',  # Required. Path for temporary files. A valid GCS URL that begins with gs://.

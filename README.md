@@ -11,7 +11,17 @@ Notebook with some examples of Apache Beam operations.
 
 - ### Run `apache_local_to_gcp.py`
 <img src="imgs/apache.png" alt="Local Process Overview" width="50%" height="auto"><br>
+
+A `DirectRunner` example that runs a pipeline on your local machine.
+
 Starts a local pipeline similar to the Notebook example, but with storage on GCP.
+
+- ### Run `generate_dataflow_template.py`
+<img src="imgs/apache-dataflow-runner.png" alt="Local Process Overview" width="50%" height="auto"><br>
+
+A `DataflowRunner` example that submit the pipeline to a Dataflow compute instance.
+This instance can be a single virtual machine. This scritp don't run the pipeline, just
+create the template on GCS.
 
 # References
 - https://www.udemy.com/course/engenharia-de-dados-com-apache-beam-google-dataflow-gcp/

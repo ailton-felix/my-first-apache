@@ -1,3 +1,7 @@
+"""
+A `DirectRunner` example that runs a pipeline on your local machine
+"""
+
 import subprocess
 import os
 
