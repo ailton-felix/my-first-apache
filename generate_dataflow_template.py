@@ -1,4 +1,3 @@
-import subprocess
 import os
 
 import apache_beam as beam
@@ -31,14 +30,8 @@ class MyFilter(beam.DoFn):
 
 if __name__ == '__main__':
 
-    # Caminho local do arquivo de dataset
-    # Local path to the dataset file
-    data_path = os.path.join(os.path.dirname(__file__), 'dataset/voos_sample.csv')
-
-    if not os.path.exists(data_path):
-        # Download dataset
-        subprocess.run(f"wget --directory-prefix={os.path.dirname(data_path)} https://raw.githubusercontent.com/cassiobolba/Python/master/"
-                       "Python-Apache-Beam/voos_sample.csv", shell=True)
+    # Storage path to the dataset file
+    data_path = os.path.join('gs://', bucket_name, 'input/flights_sample.csv')
 
     pipeline_options = PipelineOptions.from_dictionary(pipeline_options)
     # Define pipeline
