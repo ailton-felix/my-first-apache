@@ -6,17 +6,17 @@ Note: dataset extracted from [here](https://raw.githubusercontent.com/cassiobolb
 ## How to run?
 You can choose any option below to run an Apache sample:
 
-- ### Run `Apache_Beam_functions.ipynb`
+### Run `Apache_Beam_functions.ipynb`
 Notebook with some examples of Apache Beam operations.
-
-- ### Run `apache_local_to_gcp.py`
+___
+### Run `apache_local_to_gcp.py`
 <img src="imgs/apache.png" alt="Local Process Overview" width="50%" height="auto"><br>
 
 A `DirectRunner` example that runs a pipeline on your local machine.
 
 Starts a local pipeline similar to the Notebook example, but with storage on GCP.
-
-- ### Run `generate_dataflow_template.py`
+___
+### Run `generate_dataflow_template.py`
 <img src="imgs/apache-dataflow-runner.png" alt="Local Process Overview" width="50%" height="auto"><br>
 
 A `DataflowRunner` example that submit the pipeline to a Dataflow compute instance.
