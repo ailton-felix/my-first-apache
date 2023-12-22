@@ -22,9 +22,9 @@ pipeline_options = {
                                  # 'DataflowRunner' run the pipeline on the Cloud Dataflow Service.
                                  # 'DirectRunner' run the pipeline on local machine
     'region': 'us-east-1',  # The Google Compute Engine region to create the job.
-    'staging_location': 'gs://my-staging',  # Optional. GCS bucket path for staging your binary and any temporary files
-    'temp_location': 'gs://my-temp',  # Required. Path for temporary files. A valid GCS URL that begins with gs://.
-    'template_location': 'gs://my-temp'
+    'staging_location': f'gs://{bucket_name}/staging_dir',  # Optional. GCS bucket path for staging your binary and any temporary files
+    'temp_location': f'gs://{bucket_name}/temp_dir',  # Required. Path for temporary files. A valid GCS URL that begins with gs://.
+    'template_location': f'gs://{bucket_name}/template/template_name'
 }
 
 class MyFilter(beam.DoFn):
